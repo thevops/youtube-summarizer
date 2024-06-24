@@ -1,0 +1,7 @@
+log_level: info
+
+raindrop_token:
+raindrop_source_collection_id:
+raindrop_target_collection_id:
+
+openai_api_key: sk-....
