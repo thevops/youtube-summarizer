@@ -1,0 +1,8 @@
+.github
+.vscode
+.tmp
+node_modules
+.env*
+Taskfile.yml
+compose.yaml
+config/*
