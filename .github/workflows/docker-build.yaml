@@ -28,7 +28,7 @@ jobs:
           images: thevops/youtube-summarizer
           tags: |
             type=sha
-            type=semver,pattern={{version}}
+            type=semver,pattern={{raw}}
             type=ref,event=branch
             type=ref,event=pr
 
