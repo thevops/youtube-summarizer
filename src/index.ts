@@ -30,12 +30,12 @@ async function main() {
   }
 
   // Send the summary to target collection in Raindrop
-  const note = `
-    <${channel}> ${title}  [${duration}]
-    ${object.link} (${upload_date})
-    ${summary}
-    ${usage}
-  `;
+  const note = `<${channel}> ${title} [${duration}]
+---
+${object.link} (${upload_date})
+${summary}
+${usage}
+`;
   const result = await raindropAPI.addItem(
     Config.raindrop_target_collection_id,
     object.link,
