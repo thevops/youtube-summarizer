@@ -1,8 +1,22 @@
 import { Innertube } from "youtubei.js/web";
 import { logger } from "./config.ts";
 
-export async function getTranscript(videoUrl: string) {
-  const videoId = videoUrl.split("v=")[1];
+function extractVideoId(videoUrl: string): string | null {
+  const urlParts = videoUrl.split('v=');
+  if (urlParts.length > 1) {
+      const videoId = urlParts[1].split('&')[0];
+      return videoId;
+  }
+  return null;
+}
+
+export async function getTranscript(videoUrl: string): Promise<string> {
+  const videoId = extractVideoId(videoUrl);
+  if (videoId === null) {
+    logger.error(`Invalid YouTube URL: ${videoUrl}`);
+    return "";
+  }
+
   const youtube = await Innertube.create();
 
   try {
@@ -22,8 +36,13 @@ export async function getTranscript(videoUrl: string) {
   }
 }
 
-export async function getVideoDetails(videoUrl: string) {
-  const videoId = videoUrl.split("v=")[1];
+export async function getVideoDetails(videoUrl: string): Promise<[string | undefined, string | undefined, string, string]> {
+  const videoId = extractVideoId(videoUrl);
+  if (videoId === null) {
+    logger.error(`Invalid YouTube URL: ${videoUrl}`);
+    return ["", "", "", ""];
+  }
+
   const youtube = await Innertube.create();
 
   const videoBasicInfo = await youtube.getBasicInfo(videoId);
