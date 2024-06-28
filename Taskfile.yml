@@ -10,7 +10,7 @@ tasks:
   start:
     desc: Start the app
     cmds:
-      - bun src/index.ts
+      - bun src/index.ts config/production.yaml
     env:
       NODE_ENV: production
 

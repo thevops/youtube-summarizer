@@ -6,13 +6,14 @@ import {
   getVideoDetails,
   extractVideoId,
 } from "./youtube.ts";
+import type { RaindropItem } from "raindrop-api";
 
 async function main() {
   // Get link
   const { object, msg, status } = await raindropAPI.getFirstItemFromCollection(
     Config.raindrop_source_collection_id,
   );
-  if (!status) {
+  if (!status || object === null || object._id === undefined) {
     logger.info(msg);
     return;
   }
@@ -51,17 +52,22 @@ async function main() {
   }
 
   // Send the summary to target collection in Raindrop
-  const note = `<${channel}> ${title} [${duration}]
+  const note = `Upload date: ${upload_date}
 ---
-${link} (${upload_date})
 ${summary}
 ${usage}
 `;
-  const result = await raindropAPI.addItem(
-    Config.raindrop_target_collection_id,
-    link,
-    note,
-  );
+
+  const item: RaindropItem = {
+    title: `<${channel}> ${title} [${duration}]`,
+    link: link,
+    note: note,
+    collection: {
+      $id: Number(Config.raindrop_target_collection_id),
+    }
+  };
+
+  const result = await raindropAPI.addItem(item);
 
   if (result) {
     logger.info(`Final success: ${link} ${title}`);
