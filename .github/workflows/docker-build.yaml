@@ -22,7 +22,7 @@ jobs:
       - name: 📝 Get application version
         id: version
         run: |
-          echo "APP_VERSION=$(cat ./VERSION)" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(cat ./VERSION)" >> "$GITHUB_OUTPUT"
 
       - name: 📝 Docker meta
         id: meta
