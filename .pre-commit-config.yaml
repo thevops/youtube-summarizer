@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-version-file
+        name: Check VERSION file
+        entry: |
+          sh -c 'git diff --quiet master ./VERSION || echo "ERROR: The VERSION file must be different from the one in the master branch."'
+        language: system
+        files: VERSION

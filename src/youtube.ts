@@ -1,4 +1,5 @@
 import { Innertube } from "youtubei.js/web";
+import { logger } from "./config.ts";
 
 export async function extractVideoId(videoUrl: string): Promise<string | null> {
   const urlParts = videoUrl.split("v=");
@@ -34,6 +35,7 @@ export async function getTranscript(videoId: string): Promise<string | null> {
         .join(" ") ?? ""
     );
   } catch (error) {
+    logger.error(`Failed to get the transcript: ${error}`);
     return null;
   }
 }
@@ -65,30 +67,29 @@ if (import.meta.main) {
   async function test_getTranscript() {
     // Jak pół sekundy uratowało świat przed zagładą? - Mateusz Chrobok
     const transcript_1 = await getTranscript(
-      "https://www.youtube.com/watch?v=44HSTVBvAO4",
+      "44HSTVBvAO4",
     );
     console.log(transcript_1);
     console.log("--------------------------------------------------");
 
     // Nix for Everyone: Unleash Devbox for Simplified Development - DevOps Toolkit
     const transcript_2 = await getTranscript(
-      "https://www.youtube.com/watch?v=WiFLtcBvGMU",
+      "WiFLtcBvGMU",
     );
     console.log(transcript_2);
     console.log("--------------------------------------------------");
 
     // J.K. Rowling czeka na bycie aresztowaną? | Przegląd Idei #111 (08.04.2024) - Szymon mówi
     const transcript_3 = await getTranscript(
-      "https://www.youtube.com/watch?v=Rcw-eWn8hWQ",
+      "Rcw-eWn8hWQ",
     );
     console.log(transcript_3);
   }
 
   async function test_getVideoDetails() {
-    // const videoUrl = "https://www.youtube.com/watch?v=rK8gII2FWqA";
-    const videoUrl2 = "https://www.youtube.com/watch?v=44HSTVBvAO4";
+    const videoId = "44HSTVBvAO4";
     const [title, channel, duration, upload_date] =
-      await getVideoDetails(videoUrl2);
+      await getVideoDetails(videoId);
     console.log(`${title} ${channel} ${duration} ${upload_date}`);
   }
 

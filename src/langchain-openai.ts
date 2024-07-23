@@ -13,8 +13,9 @@ export async function summaryYouTubeTranscript(transcript: string) {
   Słowa kluczowe: <keywords>`;
 
   const model = new ChatOpenAI({
-    model: "gpt-4o",
+    model: "gpt-4o-mini",
     temperature: 0.2,
+    topP: 0.9,
     apiKey: Config.openai_api_key,
   });
 
@@ -56,8 +57,12 @@ if (import.meta.main) {
   async function test_one() {
     // Podrabianie sprzętu komputerowego, w tym #cisco, #yubikey - Mateusz Chrobok
     const transcript_1 = await youtube.getTranscript(
-      "https://www.youtube.com/watch?v=oDlMrMgGGA4",
+      "oDlMrMgGGA4",
     );
+    if (transcript_1 === null) {
+      console.log("Transcript is null");
+      return;
+    }
     console.log(transcript_1);
     console.log("--------------------------------------------------");
     const [summary_1, usage_1] = await summaryYouTubeTranscript(transcript_1);
@@ -68,8 +73,12 @@ if (import.meta.main) {
   async function test_two() {
     // O co chodzi z Passkeys? Pytacie, odpowiadam(y). Q&A @secfense
     const transcript_1 = await youtube.getTranscript(
-      "https://www.youtube.com/watch?v=rf6LriO_dy8",
+      "rf6LriO_dy8",
     );
+    if (transcript_1 === null) {
+      console.log("Transcript is null");
+      return;
+    }
     console.log(transcript_1);
     console.log("--------------------------------------------------");
     const [summary_1, usage_1] = await summaryYouTubeTranscript(transcript_1);
@@ -77,6 +86,6 @@ if (import.meta.main) {
     console.log(usage_1);
   }
 
-  // await test_one();
+  await test_one();
   // await test_two();
 }
