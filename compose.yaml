@@ -1,7 +1,7 @@
 ---
 services:
   app:
-    # image: thevops/youtube-summarizer
+    # image: ghcr.io/thevops/youtube-summarizer
     build:
       context: .
       dockerfile: Dockerfile
