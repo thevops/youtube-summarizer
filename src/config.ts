@@ -10,6 +10,7 @@ interface ConfigSchema {
   raindrop_token: string;
   raindrop_source_collection_id: string;
   raindrop_target_collection_id: string;
+  prompt: string;
 
   [key: string]: any;
 }
@@ -21,6 +22,7 @@ function validateConfig(config: ConfigSchema) {
     "raindrop_token",
     "raindrop_source_collection_id",
     "raindrop_target_collection_id",
+    "prompt",
   ];
 
   for (const field of requiredFields) {

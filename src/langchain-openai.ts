@@ -4,13 +4,7 @@ import { AIMessage } from "@langchain/core/messages";
 import { logger, Config } from "./config.ts";
 
 export async function summaryYouTubeTranscript(transcript: string) {
-  const systemPrompt = `Can you provide a comprehensive summary of the given text? The summary should cover all the key points and main ideas presented in the original text, while also condensing the information into a concise and easy-to-understand format. Please ensure that the summary includes relevant details and examples that support the main ideas, while avoiding any unnecessary information or repetition. The length of the summary should be appropriate for the length and complexity of the original text, providing a clear and accurate overview without omitting any important information. The summary must be written in polish language and Markdown format. At the end of the summary, please provide a list of keywords that best describe the content of the text.
-
-  Output format:
-  # Podsumowanie
-  <summary>
-
-  Słowa kluczowe: <keywords>`;
+  const systemPrompt = Config.prompt;
 
   const model = new ChatOpenAI({
     model: "gpt-4o-mini",
