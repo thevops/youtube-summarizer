@@ -39,6 +39,18 @@ async function main() {
   const [title, channel, duration, upload_date] =
     await getVideoDetails(videoId);
 
+  // Duration format: HH:MM:SS
+  // Convert duration to seconds
+  const duration_parts = duration.split(":");
+  const seconds = Number(duration_parts[0]) * 3600 +
+    Number(duration_parts[1]) * 60 +
+    Number(duration_parts[2]);
+  // Skip videos shorter than X seconds
+  if (seconds < Config.skip_videos_shorter_than) {
+    logger.info(`Skipping video shorter than ${Config.skip_videos_short_than} seconds: ${link}`);
+    return;
+  }
+
   // Get transcript from YouTube
   const transcript = await getTranscript(videoId);
 

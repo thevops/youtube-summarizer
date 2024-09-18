@@ -11,6 +11,7 @@ interface ConfigSchema {
   raindrop_source_collection_id: string;
   raindrop_target_collection_id: string;
   prompt: string;
+  skip_videos_shorter_than: number;
 
   [key: string]: any;
 }
@@ -23,6 +24,7 @@ function validateConfig(config: ConfigSchema) {
     "raindrop_source_collection_id",
     "raindrop_target_collection_id",
     "prompt",
+    "skip_videos_shorter_than",
   ];
 
   for (const field of requiredFields) {

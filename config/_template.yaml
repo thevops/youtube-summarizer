@@ -14,3 +14,5 @@ prompt: |
   <summary>
 
   Słowa kluczowe: <keywords>
+
+skip_videos_shorter_than: 120 # seconds
