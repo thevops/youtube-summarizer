@@ -14,7 +14,7 @@ async function main() {
     Config.raindrop_source_collection_id,
   );
   if (!status || object === null || object._id === undefined) {
-    logger.info(msg);
+    logger.debug(msg);
     return;
   }
 
