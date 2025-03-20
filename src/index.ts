@@ -56,7 +56,7 @@ async function main() {
     Number(duration_parts[1]) * 60 +
     Number(duration_parts[2]);
   // Skip videos shorter than X seconds
-  if (seconds < Config.skip_videos_shorter_than) {
+  if (0 < seconds && seconds < Config.skip_videos_shorter_than) {
     logger.info(`Skipping video shorter than ${Config.skip_videos_shorter_than} seconds: ${link}`);
     return;
   }
