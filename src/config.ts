@@ -20,6 +20,8 @@ function validateConfig(config: ConfigSchema) {
   const requiredFields = [
     "log_level",
     "openai_api_key",
+    "youtube_api_key",
+    "youtube_api",
     "raindrop_token",
     "raindrop_source_collection_id",
     "raindrop_target_collection_id",

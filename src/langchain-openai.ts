@@ -46,7 +46,7 @@ export async function summaryYouTubeTranscript(transcript: string) {
 // For testing purposes
 // If you run this file directly (https://bun.sh/docs/api/import-meta)
 if (import.meta.main) {
-  const youtube = await import("./youtube.ts");
+  const youtube = await import("./youtube-innertube.ts");
 
   async function test_one() {
     // Podrabianie sprzętu komputerowego, w tym #cisco, #yubikey - Mateusz Chrobok

@@ -3,9 +3,10 @@ import { logger, raindropAPI, Config } from "./config.ts";
 import {
   normalizeYouTubeURL,
   getTranscript,
-  getVideoDetails,
+  getVideoDetails as getVideoDetailsInertube,
   extractVideoId,
-} from "./youtube.ts";
+} from "./youtube-innertube.ts";
+import { getVideoDetails as getVideoDetailsOfficial } from "./youtube-official.ts";
 import type { RaindropItem } from "raindrop-api";
 
 async function main() {
@@ -35,9 +36,18 @@ async function main() {
     return;
   }
 
-  // Get details from YouTube
-  const [title, channel, duration, upload_date] =
-    await getVideoDetails(videoId);
+  // Get details from YouTube (2 ways: Inertube or Official API)
+  let title: string | undefined;
+  let channel: string | undefined;
+  let duration: string | undefined;
+  let upload_date: string | undefined;
+  if (Config.youtube_api === "innertube") {
+    [title, channel, duration, upload_date] =
+      await getVideoDetailsInertube(videoId);
+  } else {
+    [title, channel, duration, upload_date] =
+      await getVideoDetailsOfficial(videoId);
+  }
 
   // Duration format: HH:MM:SS
   // Convert duration to seconds
@@ -51,8 +61,11 @@ async function main() {
     return;
   }
 
-  // Get transcript from YouTube
-  const transcript = await getTranscript(videoId);
+  // Get transcript from YouTube (only Inertube supports transcripts)
+  let transcript: string | null = null;
+  if (Config.youtube_api === "innertube") {
+    transcript = await getTranscript(videoId);
+  }
 
   // Summarize the transcript if available
   let summary = "Podsumowanie: none";
